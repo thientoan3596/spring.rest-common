@@ -17,6 +17,12 @@ jobs:
         with:
           java-version: "17"
           distribution: "corretto"
+      - name: Build Changelog
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v5
+        with:
+          mode: "COMMIT"
+          configuration: "changelogbuilder_conf.json"
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -34,3 +40,4 @@ jobs:
           files: |
             ${{ env.JAR_PATH }}
             ${{ env.SOURCES_PATH }}
+
