@@ -11,10 +11,20 @@ version = project.findProperty("version")?.toString() ?: "1.0.0-SNAPSHOT"
 repositories {
     mavenCentral()
 }
+
 dependencies{
     api ("com.fasterxml.jackson.core:jackson-databind:2.18.3")
     api ("org.springframework:spring-web:6.2.5")
     api ("org.springframework:spring-context:6.2.5")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+    testLogging {
+       events("failed", "passed", "skipped", "standardError","standardOut")
+   }
 }
 val sourcesJar by tasks.registering(Jar::class) {
     archiveBaseName.set(rootProject.name)
